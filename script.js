@@ -5,7 +5,7 @@ console.log("MOODIFY is running! 🧠");
 // GLOBAL VARIABLES
 // =========================================
 
-let model;
+let model = null;
 
 let currentObject = null;
 
@@ -14,51 +14,6 @@ let currentDiagnosis = null;
 let lastSpeechText = "";
 
 let lastPersonality = "";
-
-
-// =========================================
-// LOAD AI MODEL
-// =========================================
-
-async function loadModel() {
-
-    try {
-
-        console.log("Loading COCO-SSD model...");
-
-
-        model = await cocoSsd.load();
-
-
-        console.log(
-            "COCO-SSD model loaded successfully! 🤖"
-        );
-
-
-        console.log(
-            "Object detection is ready!"
-        );
-
-    }
-
-    catch (error) {
-
-        console.error(
-            "Error loading AI model:",
-            error
-        );
-
-
-        result.textContent =
-
-            "⚠️ AI model could not load. Please refresh the page.";
-
-    }
-
-}
-
-
-loadModel();
 
 
 // =========================================
@@ -89,6 +44,103 @@ const appointmentResult =
     document.getElementById("appointmentResult");
 
 
+const emptyScanner =
+    document.querySelector(".empty-scanner");
+
+
+// =========================================
+// LOAD AI MODEL
+// =========================================
+
+async function loadModel() {
+
+    try {
+
+        console.log(
+            "Loading COCO-SSD model..."
+        );
+
+
+        model =
+            await cocoSsd.load();
+
+
+        console.log(
+            "COCO-SSD model loaded successfully! 🤖"
+        );
+
+
+        console.log(
+            "Object detection is ready!"
+        );
+
+    }
+
+    catch (error) {
+
+        console.error(
+            "Error loading AI model:",
+            error
+        );
+
+
+        result.textContent =
+            "⚠️ AI model could not load. Please refresh the page.";
+
+    }
+
+}
+
+
+loadModel();
+
+
+// =========================================
+// LOAD AVAILABLE VOICES
+// =========================================
+
+function loadVoices() {
+
+    const voices =
+        window.speechSynthesis.getVoices();
+
+
+    console.log(
+        "🔊 Available voices:",
+        voices.map(
+            voice => ({
+                name: voice.name,
+                lang: voice.lang
+            })
+        )
+    );
+
+
+    return voices;
+
+}
+
+
+// Load immediately
+
+loadVoices();
+
+
+// Some browsers load voices later
+
+window.speechSynthesis.onvoiceschanged =
+    () => {
+
+        console.log(
+            "🔊 Voice list updated!"
+        );
+
+
+        loadVoices();
+
+    };
+
+
 // =========================================
 // GET MOOD RESULT
 // =========================================
@@ -113,8 +165,16 @@ function getFinalMoodResult(objectName) {
             moodResult.mood,
 
 
+        // English text for display
+
         dialogue:
-            moodResult.dialogue
+            moodResult.dialogue,
+
+
+        // Malayalam text for voice
+
+        malayalamDialogue:
+            moodResult.malayalamDialogue
 
     };
 
@@ -128,7 +188,6 @@ function getFinalMoodResult(objectName) {
 function speakDiagnosis(
     personality = lastPersonality
 ) {
-
 
     if (!lastSpeechText) {
 
@@ -152,27 +211,120 @@ function speakDiagnosis(
         );
 
 
-    // Default settings
+    // =========================================
+    // DEFAULT SETTINGS
+    // =========================================
 
-    speech.rate = 1;
+    speech.rate = 0.95;
 
     speech.pitch = 1;
 
     speech.volume = 1;
 
 
-    // =====================================
-    // EMOTIONAL VOICE SETTINGS
-    // =====================================
+    // =========================================
+    // GET VOICES
+    // =========================================
+
+    const voices =
+        window.speechSynthesis.getVoices();
+
+
+    console.log(
+        "🔊 Searching for Malayalam voice..."
+    );
+
+
+    // =========================================
+    // FIND MALAYALAM VOICE
+    // =========================================
+
+    const malayalamVoice =
+
+        voices.find(
+
+            voice =>
+                voice.lang === "ml-IN"
+
+        ) ||
+
+        voices.find(
+
+            voice =>
+                voice.lang &&
+                voice.lang.startsWith("ml")
+
+        );
+
+
+    // =========================================
+    // SELECT VOICE
+    // =========================================
+
+    if (malayalamVoice) {
+
+        speech.voice =
+            malayalamVoice;
+
+
+        speech.lang =
+            malayalamVoice.lang;
+
+
+        console.log(
+            "✅ Malayalam voice found:",
+            malayalamVoice.name
+        );
+
+    }
+
+    else {
+
+        // Do not prevent speech completely
+
+        console.warn(
+            "⚠️ Malayalam voice not found on this device."
+        );
+
+
+        // Try Indian English fallback
+
+        const indianEnglishVoice =
+
+            voices.find(
+
+                voice =>
+                    voice.lang === "en-IN"
+
+            );
+
+
+        if (indianEnglishVoice) {
+
+            speech.voice =
+                indianEnglishVoice;
+
+        }
+
+
+        speech.lang =
+            "en-IN";
+
+    }
+
+
+    // =========================================
+    // PERSONALITY-BASED EMOTIONS
+    // =========================================
 
     switch (personality) {
 
 
         case "energetic":
 
-            speech.rate = 1.18;
+            speech.rate = 1.15;
 
-            speech.pitch = 1.35;
+            speech.pitch = 1.25;
 
             speech.volume = 1;
 
@@ -181,22 +333,22 @@ function speakDiagnosis(
 
         case "dramatic":
 
-            speech.rate = 0.72;
+            speech.rate = 0.82;
 
-            speech.pitch = 0.75;
+            speech.pitch = 0.85;
 
-            speech.volume = 0.75;
+            speech.volume = 0.9;
 
             break;
 
 
         case "lazy":
 
-            speech.rate = 0.68;
+            speech.rate = 0.72;
 
-            speech.pitch = 0.8;
+            speech.pitch = 0.9;
 
-            speech.volume = 0.8;
+            speech.volume = 0.85;
 
             break;
 
@@ -205,7 +357,7 @@ function speakDiagnosis(
 
             speech.rate = 1.08;
 
-            speech.pitch = 0.7;
+            speech.pitch = 0.75;
 
             speech.volume = 1;
 
@@ -214,29 +366,66 @@ function speakDiagnosis(
 
         case "sarcastic":
 
-            speech.rate = 0.82;
+            speech.rate = 0.9;
 
-            speech.pitch = 0.9;
+            speech.pitch = 0.88;
 
-            speech.volume = 0.95;
+            speech.volume = 0.9;
 
             break;
 
 
         case "mysterious":
 
-            speech.rate = 0.7;
+            speech.rate = 0.78;
 
-            speech.pitch = 0.65;
+            speech.pitch = 0.8;
 
-            speech.volume = 0.8;
+            speech.volume = 0.85;
 
             break;
 
     }
 
 
-    // Speak
+    // =========================================
+    // SPEECH EVENTS
+    // =========================================
+
+    speech.onstart =
+        () => {
+
+            console.log(
+                "🔊 Speech started!"
+            );
+
+        };
+
+
+    speech.onend =
+        () => {
+
+            console.log(
+                "🔇 Speech finished."
+            );
+
+        };
+
+
+    speech.onerror =
+        (event) => {
+
+            console.error(
+                "❌ Speech error:",
+                event.error
+            );
+
+        };
+
+
+    // =========================================
+    // SPEAK
+    // =========================================
 
     window.speechSynthesis.speak(
         speech
@@ -244,7 +433,13 @@ function speakDiagnosis(
 
 
     console.log(
-        "🔊 Speaking diagnosis with personality:",
+        "🔊 Speaking:",
+        lastSpeechText
+    );
+
+
+    console.log(
+        "🎭 Personality:",
         personality
     );
 
@@ -252,7 +447,7 @@ function speakDiagnosis(
 
 
 // =========================================
-// SPEAK DIAGNOSIS BUTTON
+// SPEAK BUTTON
 // =========================================
 
 speakButton.addEventListener(
@@ -283,16 +478,15 @@ function analyzeObjectMood(objectName) {
         );
 
 
-    // Save diagnosis
+    currentDiagnosis = {
 
-   currentDiagnosis = {
+        ...finalResult,
 
-    ...finalResult,
 
-    image:
-        uploadedImage.src
+        image:
+            uploadedImage.src
 
-};
+    };
 
 
     currentObject =
@@ -301,13 +495,13 @@ function analyzeObjectMood(objectName) {
 
     console.log(
         "🤖 MOODIFY Diagnosis:",
-        finalResult
+        currentDiagnosis
     );
 
 
-    // =====================================
-    // DISPLAY RESULT
-    // =====================================
+    // =========================================
+    // DISPLAY RESULT IN ENGLISH
+    // =========================================
 
     result.innerHTML =
 
@@ -341,51 +535,34 @@ function analyzeObjectMood(objectName) {
         "\"";
 
 
-    // =====================================
+    // =========================================
     // SAVE PERSONALITY
-    // =====================================
+    // =========================================
 
     lastPersonality =
         finalResult.personality;
 
 
-    // =====================================
-    // CREATE SPEECH TEXT
-    // =====================================
+    // =========================================
+    // SAVE MALAYALAM FOR VOICE
+    // =========================================
 
     lastSpeechText =
 
-        "Hmm... " +
-
-        "I have finished analyzing the " +
-
-        finalResult.object +
-
-        ". " +
-
-
-        "Its personality appears to be " +
-
-        finalResult.personality +
-
-        ". " +
-
-
-        "Its current emotional condition is " +
-
-        finalResult.mood +
-
-        ". " +
-
-
-        "And the patient says... " +
+        finalResult.malayalamDialogue ||
 
         finalResult.dialogue;
 
 
-    // =====================================
+    console.log(
+        "Malayalam speech text:",
+        lastSpeechText
+    );
+
+
+    // =========================================
     // ENABLE BUTTONS
-    // =====================================
+    // =========================================
 
     speakButton.disabled =
         false;
@@ -395,9 +572,9 @@ function analyzeObjectMood(objectName) {
         false;
 
 
-    // =====================================
-    // UPDATE THERAPY STATUS
-    // =====================================
+    // =========================================
+    // APPOINTMENT + QUALIFICATIONS
+    // =========================================
 
     appointmentResult.innerHTML =
 
@@ -407,12 +584,50 @@ function analyzeObjectMood(objectName) {
 
         "</b> has been admitted to the clinic.<br><br>" +
 
+
+        "🍌 <b>Your Therapist: Dr. MOODIFY</b><br>" +
+
+        "Chief Object Therapist<br><br>" +
+
+
+        "🎓 <b>Qualifications:</b><br><br>" +
+
+
+        "🍌 <b>MBBS*</b><br>" +
+
+        "Master of Banana Behaviour Studies<br><br>" +
+
+
+        "🧠 <b>PhD</b><br>" +
+
+        "Pretending to Listen Professionally<br><br>" +
+
+
+        "🛋️ <b>Certified</b><br>" +
+
+        "Emotional Furniture Specialist<br><br>" +
+
+
+        "🏆 <b>Experience:</b><br>" +
+
+        "0% Success Rate, 100% Confidence<br><br>" +
+
+
+        "<small>" +
+
+        "*Qualifications may be emotionally imaginary. 😭" +
+
+        "</small><br><br>" +
+
+
         "🍌 Dr. MOODIFY is waiting in the therapy room.<br>" +
 
-        "The doctor is a banana. This is apparently fine. 😭";
+        "Please escort the patient carefully. 😭";
 
 
-    // Automatically speak diagnosis
+    // =========================================
+    // SPEAK AUTOMATICALLY
+    // =========================================
 
     speakDiagnosis(
         finalResult.personality
@@ -469,8 +684,6 @@ imageUpload.addEventListener(
             "";
 
 
-        // Disable buttons while analyzing
-
         speakButton.disabled =
             true;
 
@@ -479,15 +692,18 @@ imageUpload.addEventListener(
             true;
 
 
-        // Reset therapy status
-
         appointmentResult.textContent =
 
             "🕒 Waiting for the patient to be identified.";
 
 
+        result.textContent =
+
+            "🧠 Patient admitted. AI is examining the emotional situation...";
+
+
         // =====================================
-        // CREATE IMAGE URL
+        // SHOW IMAGE IMMEDIATELY
         // =====================================
 
         const imageURL =
@@ -496,189 +712,226 @@ imageUpload.addEventListener(
             );
 
 
-        // Show uploaded image
-
-        uploadedImage.src =
-            imageURL;
-
-
         uploadedImage.style.display =
             "block";
 
 
-        // Show analyzing message
+        if (emptyScanner) {
 
-        result.textContent =
+            emptyScanner.style.display =
+                "none";
 
-            "🧠 Patient admitted. AI is examining the emotional situation...";
+        }
 
-
-        // =====================================
-        // WHEN IMAGE LOADS
-        // =====================================
 
         uploadedImage.onload =
 
             async () => {
 
 
-                // Check AI model
-
-                if (!model) {
-
-
-                    result.textContent =
-
-                        "🤖 AI model is still loading. Please wait a moment and try again.";
+                console.log(
+                    "Patient image loaded successfully!"
+                );
 
 
-                    return;
+                // =================================
+                // CONVERT IMAGE TO BASE64
+                // =================================
 
-                }
-
-
-                try {
-
-
-                    console.log(
-                        "Analyzing uploaded patient..."
-                    );
+                const reader =
+                    new FileReader();
 
 
-                    const predictions =
+                reader.onload =
 
-                        await model.detect(
-                            uploadedImage
-                        );
+                    async () => {
 
 
-                    console.log(
-                        "AI predictions:",
-                        predictions
-                    );
+                        const base64Image =
+                            reader.result;
 
 
-                    // =================================
-                    // FILTER DETECTED OBJECTS
-                    // =================================
+                        uploadedImage.dataset.base64 =
+                            base64Image;
 
-                    const objects =
 
-                        predictions
+                        // =================================
+                        // CHECK MODEL
+                        // =================================
 
-                            .filter(
+                        if (!model) {
 
-                                prediction =>
+                            result.textContent =
 
-                                    prediction.score >
-                                    0.50
+                                "🤖 AI model is still loading. Please wait a moment and upload the patient again.";
 
-                            )
+                            return;
 
-                            .filter(
+                        }
 
-                                prediction =>
 
-                                    prediction.class !==
-                                    "person"
+                        try {
 
+
+                            console.log(
+                                "Analyzing uploaded patient..."
                             );
 
 
-                    // =================================
-                    // OBJECT FOUND
-                    // =================================
+                            const predictions =
 
-                    if (
-                        objects.length > 0
-                    ) {
+                                await model.detect(
+                                    uploadedImage
+                                );
 
 
-                        objects.sort(
-
-                            (a, b) =>
-
-                                b.score -
-
-                                a.score
-
-                        );
+                            console.log(
+                                "AI predictions:",
+                                predictions
+                            );
 
 
-                        const bestObject =
-                            objects[0];
+                            // =================================
+                            // FILTER OBJECTS
+                            // =================================
+
+                            const objects =
+
+                                predictions
+
+                                    .filter(
+
+                                        prediction =>
+
+                                            prediction.score >
+                                            0.50
+
+                                    )
+
+                                    .filter(
+
+                                        prediction =>
+
+                                            prediction.class !==
+                                            "person"
+
+                                    );
 
 
-                        currentObject =
-                            bestObject.class;
+                            // =================================
+                            // OBJECT FOUND
+                            // =================================
+
+                            if (
+
+                                objects.length > 0
+
+                            ) {
 
 
-                        console.log(
+                                objects.sort(
 
-                            "🎯 Object detected:",
+                                    (a, b) =>
 
-                            currentObject,
+                                        b.score -
+                                        a.score
 
-                            "Confidence:",
-
-                            bestObject.score
-
-                        );
+                                );
 
 
-                        // Analyze emotional condition
-
-                        analyzeObjectMood(
-                            currentObject
-                        );
-
-                    }
+                                const bestObject =
+                                    objects[0];
 
 
-                    // =================================
-                    // NO OBJECT FOUND
-                    // =================================
-
-                    else {
+                                currentObject =
+                                    bestObject.class;
 
 
-                        result.innerHTML =
+                                console.log(
 
-                            "🤔 <b>Patient could not be identified.</b><br><br>" +
+                                    "🎯 Object detected:",
 
-                            "MOODIFY stared at the image for several seconds and now needs emotional support.";
+                                    currentObject,
 
+                                    "Confidence:",
 
-                        appointmentResult.textContent =
+                                    bestObject.score
 
-                            "❌ Therapy cannot begin until a patient is identified.";
-
-                    }
-
-                }
+                                );
 
 
-                catch (error) {
+                                analyzeObjectMood(
+                                    currentObject
+                                );
 
 
-                    console.error(
-                        "Image detection error:",
-                        error
-                    );
+                                // Save BASE64 image
+
+                                currentDiagnosis.image =
+                                    base64Image;
+
+                            }
 
 
-                    result.textContent =
+                            // =================================
+                            // OBJECT NOT FOUND
+                            // =================================
 
-                        "⚠️ Error analyzing the patient image.";
+                            else {
 
 
-                    appointmentResult.textContent =
+                                result.innerHTML =
 
-                        "❌ The clinic experienced an emotional technical failure.";
+                                    "🤔 <b>Patient could not be identified.</b><br><br>" +
 
-                }
+                                    "MOODIFY stared at the image for several seconds and now needs emotional support.";
+
+
+                                appointmentResult.textContent =
+
+                                    "❌ Therapy cannot begin until a patient is identified.";
+
+                            }
+
+
+                        }
+
+
+                        catch (error) {
+
+
+                            console.error(
+                                "Image detection error:",
+                                error
+                            );
+
+
+                            result.textContent =
+
+                                "⚠️ Error analysing the patient image.";
+
+
+                            appointmentResult.textContent =
+
+                                "❌ The clinic experienced an emotional technical failure.";
+
+                        }
+
+
+                    };
+
+
+                reader.readAsDataURL(
+                    file
+                );
+
 
             };
+
+
+        uploadedImage.src =
+            imageURL;
+
 
     }
 
@@ -696,8 +949,6 @@ goToTherapy.addEventListener(
     () => {
 
 
-        // Check if patient exists
-
         if (!currentDiagnosis) {
 
 
@@ -711,38 +962,56 @@ goToTherapy.addEventListener(
         }
 
 
-        // Stop diagnosis speech
-
         window.speechSynthesis.cancel();
 
 
-        // =====================================
-        // SAVE PATIENT FOR THERAPY PAGE
-        // =====================================
+        try {
 
-        localStorage.setItem(
 
-            "moodifyPatient",
+            localStorage.setItem(
 
-            JSON.stringify(
+                "moodifyPatient",
+
+                JSON.stringify(
+                    currentDiagnosis
+                )
+
+            );
+
+
+            console.log(
+
+                "🛋️ Patient sent to therapy:",
+
                 currentDiagnosis
-            )
 
-        );
-
-
-        console.log(
-
-            "🛋️ Patient sent to therapy:",
-
-            currentDiagnosis
-
-        );
+            );
 
 
-        // =====================================
-        // SHOW TRANSITION MESSAGE
-        // =====================================
+        }
+
+
+        catch (error) {
+
+
+            console.error(
+
+                "Could not save patient:",
+
+                error
+
+            );
+
+
+            appointmentResult.textContent =
+
+                "❌ The patient file could not be transferred to therapy.";
+
+
+            return;
+
+        }
+
 
         appointmentResult.innerHTML =
 
@@ -752,10 +1021,6 @@ goToTherapy.addEventListener(
 
             "Please escort the patient carefully. 😭";
 
-
-        // =====================================
-        // OPEN THERAPY PAGE
-        // =====================================
 
         setTimeout(
 
@@ -772,6 +1037,7 @@ goToTherapy.addEventListener(
             800
 
         );
+
 
     }
 

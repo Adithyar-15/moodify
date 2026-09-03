@@ -23,13 +23,46 @@ if (!savedPatient) {
     window.location.href =
         "index.html";
 
+
+    throw new Error(
+        "No patient data found."
+    );
+
 }
 
 
-const patient =
-    JSON.parse(
-        savedPatient
+let patient;
+
+
+try {
+
+    patient =
+        JSON.parse(
+            savedPatient
+        );
+
+}
+
+catch (error) {
+
+    console.error(
+        "Patient data error:",
+        error
     );
+
+
+    alert(
+        "Patient data is corrupted! Returning to clinic."
+    );
+
+
+    window.location.href =
+        "index.html";
+
+
+    throw error;
+
+}
 
 
 // =========================================
@@ -107,11 +140,13 @@ const patientCharacter =
 // =========================================
 
 patientName.textContent =
-    patient.object;
+    patient.object ||
+    "Unknown Object";
 
 
 patientMood.textContent =
-    patient.mood;
+    patient.mood ||
+    "Emotionally Confused";
 
 
 // Load patient image
@@ -128,6 +163,10 @@ else {
     console.warn(
         "Patient image was not saved."
     );
+
+
+    patientImage.style.display =
+        "none";
 
 }
 
@@ -180,7 +219,8 @@ const conversation = [
             patient.object,
 
         text:
-            patient.dialogue
+            patient.dialogue ||
+            "I have many complicated object emotions."
 
     },
 
@@ -393,21 +433,15 @@ function showConversation() {
 
 
     if (
-
         currentStep >=
         conversation.length
-
     ) {
-
 
         window.speechSynthesis.cancel();
 
-
         stopTalkingAnimations();
 
-
         showPrescription();
-
 
         return;
 
@@ -420,8 +454,6 @@ function showConversation() {
         ];
 
 
-    // Save current message
-
     currentSpeechText =
         message.text;
 
@@ -429,8 +461,6 @@ function showConversation() {
     currentSpeaker =
         message.speaker;
 
-
-    // Display speaker
 
     speakerName.textContent =
         message.name;
@@ -444,14 +474,10 @@ function showConversation() {
         message.text;
 
 
-    // Animation
-
     startTalkingAnimation(
         message.speaker
     );
 
-
-    // Speak
 
     speak(
         message.text,
@@ -459,13 +485,9 @@ function showConversation() {
     );
 
 
-    // Update button
-
     if (
-
         currentStep ===
         conversation.length - 1
-
     ) {
 
         nextButton.textContent =
@@ -491,17 +513,13 @@ function startTalkingAnimation(
     speaker
 ) {
 
-
     stopTalkingAnimations();
 
 
     if (
-
         speaker ===
         "doctor"
-
     ) {
-
 
         doctorCharacter.classList.add(
             "talking"
@@ -510,7 +528,6 @@ function startTalkingAnimation(
     }
 
     else {
-
 
         patientCharacter.classList.add(
             "talking"
@@ -526,7 +543,6 @@ function startTalkingAnimation(
 // =========================================
 
 function stopTalkingAnimations() {
-
 
     doctorCharacter.classList.remove(
         "talking"
@@ -550,7 +566,6 @@ nextButton.addEventListener(
 
     () => {
 
-
         if (!therapyStarted) {
 
             startTherapy();
@@ -565,7 +580,6 @@ nextButton.addEventListener(
 
         showConversation();
 
-
     }
 
 );
@@ -576,13 +590,9 @@ nextButton.addEventListener(
 // =========================================
 
 function speak(
-
     text,
-
     speaker
-
 ) {
-
 
     if (!soundEnabled) {
 
@@ -600,15 +610,10 @@ function speak(
         );
 
 
-    // Doctor voice
-
     if (
-
         speaker ===
         "doctor"
-
     ) {
-
 
         speech.rate =
             0.9;
@@ -617,17 +622,9 @@ function speak(
         speech.pitch =
             1.2;
 
-
-        speech.volume =
-            1;
-
     }
 
-
-    // Patient voice
-
     else {
-
 
         speech.rate =
             0.95;
@@ -636,15 +633,14 @@ function speak(
         speech.pitch =
             0.9;
 
-
-        speech.volume =
-            1;
-
     }
 
 
-    speech.onend =
+    speech.volume =
+        1;
 
+
+    speech.onend =
         () => {
 
             stopTalkingAnimations();
@@ -669,12 +665,7 @@ replayButton.addEventListener(
 
     () => {
 
-
-        if (
-
-            !currentSpeechText
-
-        ) {
+        if (!currentSpeechText) {
 
             return;
 
@@ -687,13 +678,9 @@ replayButton.addEventListener(
 
 
         speak(
-
             currentSpeechText,
-
             currentSpeaker
-
         );
-
 
     }
 
@@ -710,17 +697,11 @@ muteButton.addEventListener(
 
     () => {
 
-
         soundEnabled =
             !soundEnabled;
 
 
-        if (
-
-            soundEnabled
-
-        ) {
-
+        if (soundEnabled) {
 
             muteButton.textContent =
                 "🔊 Sound On";
@@ -729,9 +710,7 @@ muteButton.addEventListener(
 
         else {
 
-
             window.speechSynthesis.cancel();
-
 
             stopTalkingAnimations();
 
@@ -740,7 +719,6 @@ muteButton.addEventListener(
                 "🔇 Sound Off";
 
         }
-
 
     }
 
@@ -752,7 +730,6 @@ muteButton.addEventListener(
 // =========================================
 
 function showPrescription() {
-
 
     document.getElementById(
         "prescriptionSection"
@@ -809,8 +786,6 @@ function showPrescription() {
         "but feels emotionally validated. 🎉";
 
 
-    // Scroll to prescription
-
     document.getElementById(
         "prescriptionSection"
     ).scrollIntoView({
@@ -819,6 +794,5 @@ function showPrescription() {
             "smooth"
 
     });
-
 
 }
