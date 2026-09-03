@@ -32,7 +32,6 @@
         src="https://cdn.jsdelivr.net/npm/@tensorflow-models/coco-ssd@2.2.3/dist/coco-ssd.min.js">
     </script>
 
-
 </head>
 
 
@@ -131,27 +130,25 @@
 
 
         <!-- ================================= -->
-        <!-- WARNING -->
+        <!-- FUNNY DISCLAIMER -->
         <!-- ================================= -->
 
         <section class="disclaimer">
 
 
             <span>
-                ⚠️
+                🍌
             </span>
 
 
             <p>
 
-
                 <strong>
-                    DISCLAIMER:
+                    IMPORTANT MEDICAL ANNOUNCEMENT:
                 </strong>
 
-
-                We are not doctors. Your chair is probably fine.
-
+                The doctor is literally a banana.
+                Any emotional recovery is purely coincidental. 😭
 
             </p>
 
@@ -290,8 +287,6 @@
             <div class="media-frame">
 
 
-                <!-- CORNERS -->
-
                 <div class="corner top-left">
                 </div>
 
@@ -319,7 +314,9 @@
 
                 <!-- WAITING SCREEN -->
 
-                <div class="empty-scanner">
+                <div
+                    id="emptyScanner"
+                    class="empty-scanner">
 
 
                     <div class="scanner-face">
@@ -403,8 +400,6 @@
 
 
 
-            <!-- RESULT -->
-
             <div
                 id="result"
                 class="result-content">
@@ -442,8 +437,6 @@
             </div>
 
 
-
-            <!-- SPEAK DIAGNOSIS -->
 
             <button
                 id="speakButton"
@@ -486,7 +479,7 @@
 
                     <small>
 
-                        PROFESSIONAL HELP
+                        PROFESSIONAL HELP*
 
                     </small>
 
@@ -516,6 +509,218 @@
 
 
             </p>
+
+
+
+            <!-- DOCTOR PROFILE + QUALIFICATIONS -->
+
+            <div
+                id="doctorProfile"
+                class="doctor-profile-card">
+
+
+                <div class="doctor-profile-header">
+
+
+                    <div class="doctor-avatar-mini">
+    <img src="assets/dr-moodify.png" alt="Dr. MOODIFY">
+</div>
+
+
+                    <div>
+
+
+                        <div class="doctor-status">
+
+                            CURRENTLY ON DUTY
+
+                        </div>
+
+
+                        <h3>
+
+                            Dr. MOODIFY
+
+                        </h3>
+
+
+                        <p>
+
+                            Chief Emotional Object Therapist
+
+                        </p>
+
+
+                    </div>
+
+
+                </div>
+
+
+
+                <div class="doctor-divider">
+                </div>
+
+
+
+                <h4 class="qualification-title">
+
+                    🎓 Extremely Impressive Qualifications
+
+                </h4>
+
+
+
+                <div class="qualification-grid">
+
+
+                    <div class="qualification-box">
+
+
+                        <span class="qualification-icon">
+
+                            🍌
+
+                        </span>
+
+
+                        <div>
+
+
+                            <strong>
+
+                                MBBS*
+
+                            </strong>
+
+
+                            <small>
+
+                                Master of Banana Behaviour Studies
+
+                            </small>
+
+
+                        </div>
+
+
+                    </div>
+
+
+
+                    <div class="qualification-box">
+
+
+                        <span class="qualification-icon">
+
+                            🧠
+
+                        </span>
+
+
+                        <div>
+
+
+                            <strong>
+
+                                PhD
+
+                            </strong>
+
+
+                            <small>
+
+                                Pretending to Listen Professionally
+
+                            </small>
+
+
+                        </div>
+
+
+                    </div>
+
+
+
+                    <div class="qualification-box">
+
+
+                        <span class="qualification-icon">
+
+                            🛋️
+
+                        </span>
+
+
+                        <div>
+
+
+                            <strong>
+
+                                Certified
+
+                            </strong>
+
+
+                            <small>
+
+                                Emotional Furniture Specialist
+
+                            </small>
+
+
+                        </div>
+
+
+                    </div>
+
+
+
+                    <div class="qualification-box confidence-box">
+
+
+                        <span class="qualification-icon">
+
+                            🏆
+
+                        </span>
+
+
+                        <div>
+
+
+                            <strong>
+
+                                Experience
+
+                            </strong>
+
+
+                            <small>
+
+                                0% Success Rate • 100% Confidence
+
+                            </small>
+
+
+                        </div>
+
+
+                    </div>
+
+
+                </div>
+
+
+
+                <p class="qualification-disclaimer">
+
+                    *Qualifications may have been printed at home. 😭
+
+                </p>
+
+
+            </div>
 
 
 
@@ -561,8 +766,6 @@
             style="display: none;">
 
 
-            <!-- TITLE -->
-
             <div class="section-title">
 
 
@@ -579,7 +782,7 @@
 
                     <small>
 
-                        ABSOLUTELY UNQUALIFIED THERAPY
+                        ABSOLUTELY QUESTIONABLE THERAPY
 
                     </small>
 
@@ -599,25 +802,19 @@
 
 
 
-            <!-- DESCRIPTION -->
-
             <p class="section-description">
 
 
                 Welcome to the therapy room.
 
-                Dr. MOODIFY is a banana with a doctor coat,
-                absolutely no qualifications,
+                Dr. MOODIFY is a banana with suspiciously impressive
+                qualifications, absolutely no medical licence,
                 and unfortunately many opinions.
 
 
             </p>
 
 
-
-            <!-- ================================= -->
-            <!-- THERAPY CHARACTERS -->
-            <!-- ================================= -->
 
             <div class="therapy-characters">
 
@@ -658,7 +855,7 @@
 
                     <small>
 
-                        Therapist • Banana • Unqualified
+                        Therapist • Banana • Extremely Confident
 
                     </small>
 
@@ -683,9 +880,7 @@
                     <h3
                         id="therapyPatientName">
 
-
                         Patient
-
 
                     </h3>
 
@@ -693,16 +888,12 @@
 
                     <small>
 
-
                         Current mood:
-
 
                         <span
                             id="therapyPatientMood">
 
-
                             Unknown
-
 
                         </span>
 
@@ -717,10 +908,6 @@
 
 
 
-            <!-- ================================= -->
-            <!-- CONVERSATION BOX -->
-            <!-- ================================= -->
-
             <div
                 id="therapyConversation"
                 class="therapy-conversation">
@@ -733,10 +920,6 @@
             </div>
 
 
-
-            <!-- ================================= -->
-            <!-- NEXT CONVERSATION BUTTON -->
-            <!-- ================================= -->
 
             <button
                 id="nextTherapyButton"
@@ -785,13 +968,11 @@
 
             <span>
 
-
                 100% useless •
 
                 0% medical accuracy •
 
                 100% feelings
-
 
             </span>
 
