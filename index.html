@@ -1,0 +1,820 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0">
+
+    <title>
+        MOODIFY — Object Emotion Clinic 🧠
+    </title>
+
+    <link
+        rel="stylesheet"
+        href="style.css">
+
+
+    <!-- TensorFlow.js -->
+
+    <script
+        src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@4.22.0/dist/tf.min.js">
+    </script>
+
+
+    <!-- COCO-SSD -->
+
+    <script
+        src="https://cdn.jsdelivr.net/npm/@tensorflow-models/coco-ssd@2.2.3/dist/coco-ssd.min.js">
+    </script>
+
+
+</head>
+
+
+<body>
+
+
+    <!-- Decorative doodles -->
+
+    <div class="doodle doodle-1">
+        ✦
+    </div>
+
+    <div class="doodle doodle-2">
+        ☁
+    </div>
+
+    <div class="doodle doodle-3">
+        ♡
+    </div>
+
+    <div class="doodle doodle-4">
+        ✳
+    </div>
+
+
+
+    <main class="clinic">
+
+
+        <!-- ================================= -->
+        <!-- TOP LABEL -->
+        <!-- ================================= -->
+
+        <div class="top-label">
+
+            🧠 MOODIFY'S VERY SERIOUS CLINIC
+
+        </div>
+
+
+
+        <!-- ================================= -->
+        <!-- HEADER -->
+        <!-- ================================= -->
+
+        <header class="hero">
+
+
+            <div class="logo-row">
+
+
+                <span class="logo-star">
+                    ✦
+                </span>
+
+
+                <h1>
+                    MOODIFY
+                </h1>
+
+
+                <span class="logo-face">
+                    😵‍💫
+                </span>
+
+
+            </div>
+
+
+
+            <div class="clinic-stamp">
+
+                OBJECT EMOTION CLINIC
+
+            </div>
+
+
+
+            <p class="hero-text">
+
+                Humans have therapy.
+
+                <br>
+
+                <strong>
+
+                    Your furniture deserves it too.
+
+                </strong>
+
+            </p>
+
+
+        </header>
+
+
+
+        <!-- ================================= -->
+        <!-- WARNING -->
+        <!-- ================================= -->
+
+        <section class="disclaimer">
+
+
+            <span>
+                ⚠️
+            </span>
+
+
+            <p>
+
+
+                <strong>
+                    DISCLAIMER:
+                </strong>
+
+
+                We are not doctors. Your chair is probably fine.
+
+
+            </p>
+
+
+        </section>
+
+
+
+        <!-- ================================= -->
+        <!-- PATIENT ADMISSION -->
+        <!-- ================================= -->
+
+        <section class="admission-card">
+
+
+            <div
+                class="card-tape tape-left">
+            </div>
+
+
+            <div
+                class="card-tape tape-right">
+            </div>
+
+
+
+            <div class="section-title">
+
+
+                <span class="title-number">
+
+                    01
+
+                </span>
+
+
+
+                <div>
+
+
+                    <small>
+
+                        FIRST THINGS FIRST
+
+                    </small>
+
+
+                    <h2>
+
+                        Admit your patient 🩺
+
+                    </h2>
+
+
+                </div>
+
+
+            </div>
+
+
+
+            <p class="section-description">
+
+                Upload a completely innocent object for a
+                highly unnecessary emotional examination.
+
+            </p>
+
+
+
+            <!-- IMAGE UPLOAD -->
+
+            <label
+                for="imageUpload"
+                class="uploadButton">
+
+
+                🖼️
+
+
+                <span>
+
+                    Upload your traumatised object
+
+                </span>
+
+
+            </label>
+
+
+
+            <input
+                type="file"
+                id="imageUpload"
+                accept="image/*">
+
+
+        </section>
+
+
+
+        <!-- ================================= -->
+        <!-- OBJECT SCANNER -->
+        <!-- ================================= -->
+
+        <section class="analysis-section">
+
+
+            <div class="analysis-heading">
+
+
+                <div class="pulse-dot">
+                </div>
+
+
+
+                <span>
+
+                    EMOTIONAL SCANNER ONLINE
+
+                </span>
+
+
+
+                <span class="scanner-joke">
+
+                    definitely not judging
+
+                </span>
+
+
+            </div>
+
+
+
+            <div class="media-frame">
+
+
+                <!-- CORNERS -->
+
+                <div class="corner top-left">
+                </div>
+
+
+                <div class="corner top-right">
+                </div>
+
+
+                <div class="corner bottom-left">
+                </div>
+
+
+                <div class="corner bottom-right">
+                </div>
+
+
+
+                <!-- UPLOADED IMAGE -->
+
+                <img
+                    id="uploadedImage"
+                    alt="Patient object preview">
+
+
+
+                <!-- WAITING SCREEN -->
+
+                <div class="empty-scanner">
+
+
+                    <div class="scanner-face">
+
+                        ◉_◉
+
+                    </div>
+
+
+
+                    <p>
+
+                        Waiting for today's patient...
+
+                    </p>
+
+
+
+                    <small>
+
+                        No pressure.
+                        The object is already nervous.
+
+                    </small>
+
+
+                </div>
+
+
+            </div>
+
+
+        </section>
+
+
+
+        <!-- ================================= -->
+        <!-- DIAGNOSIS -->
+        <!-- ================================= -->
+
+        <section class="diagnosis-card">
+
+
+            <div class="diagnosis-top">
+
+
+                <div>
+
+
+                    <small>
+
+                        02 — THE RESULTS ARE IN
+
+                    </small>
+
+
+
+                    <h2>
+
+                        Emotional Diagnosis 🧠
+
+                    </h2>
+
+
+                </div>
+
+
+
+                <div class="official-stamp">
+
+                    HIGHLY
+
+                    <br>
+
+                    UNOFFICIAL
+
+                </div>
+
+
+            </div>
+
+
+
+            <!-- RESULT -->
+
+            <div
+                id="result"
+                class="result-content">
+
+
+                <div class="waiting-result">
+
+
+                    <span class="big-question">
+
+                        🤔
+
+                    </span>
+
+
+
+                    <h3>
+
+                        No diagnosis yet
+
+                    </h3>
+
+
+
+                    <p>
+
+                        Upload an object with unresolved issues.
+
+                    </p>
+
+
+                </div>
+
+
+            </div>
+
+
+
+            <!-- SPEAK DIAGNOSIS -->
+
+            <button
+                id="speakButton"
+                class="speak-button"
+                disabled>
+
+
+                🔊 Hear the Diagnosis
+
+
+            </button>
+
+
+        </section>
+
+
+
+        <!-- ================================= -->
+        <!-- THERAPY ENTRY -->
+        <!-- ================================= -->
+
+        <section
+            id="appointmentSection"
+            class="appointment-card">
+
+
+            <div class="section-title">
+
+
+                <span class="title-number">
+
+                    03
+
+                </span>
+
+
+
+                <div>
+
+
+                    <small>
+
+                        PROFESSIONAL HELP
+
+                    </small>
+
+
+
+                    <h2>
+
+                        Therapy Session 🛋️
+
+                    </h2>
+
+
+                </div>
+
+
+            </div>
+
+
+
+            <p class="section-description">
+
+
+                Your patient has been emotionally diagnosed.
+
+                Dr. MOODIFY is ready to listen to its
+                completely unnecessary problems.
+
+
+            </p>
+
+
+
+            <!-- GO TO THERAPY -->
+
+            <button
+                id="goToTherapy"
+                class="appointment-button"
+                disabled>
+
+
+                🛋️ Go for Therapy with Dr. MOODIFY
+
+
+            </button>
+
+
+
+            <!-- THERAPY STATUS -->
+
+            <div
+                id="appointmentResult"
+                class="appointment-result">
+
+
+                Waiting for a patient to be diagnosed.
+
+
+            </div>
+
+
+        </section>
+
+
+
+        <!-- ================================= -->
+        <!-- THERAPY ROOM -->
+        <!-- ================================= -->
+
+        <section
+            id="therapyRoom"
+            class="therapy-room"
+            style="display: none;">
+
+
+            <!-- TITLE -->
+
+            <div class="section-title">
+
+
+                <span class="title-number">
+
+                    04
+
+                </span>
+
+
+
+                <div>
+
+
+                    <small>
+
+                        ABSOLUTELY UNQUALIFIED THERAPY
+
+                    </small>
+
+
+
+                    <h2>
+
+                        Therapy with Dr. MOODIFY 🍌
+
+                    </h2>
+
+
+                </div>
+
+
+            </div>
+
+
+
+            <!-- DESCRIPTION -->
+
+            <p class="section-description">
+
+
+                Welcome to the therapy room.
+
+                Dr. MOODIFY is a banana with a doctor coat,
+                absolutely no qualifications,
+                and unfortunately many opinions.
+
+
+            </p>
+
+
+
+            <!-- ================================= -->
+            <!-- THERAPY CHARACTERS -->
+            <!-- ================================= -->
+
+            <div class="therapy-characters">
+
+
+                <!-- DOCTOR -->
+
+                <div class="doctor-character">
+
+
+                    <div class="doctor-avatar">
+
+
+                        <div class="doctor-coat">
+
+                            🥼
+
+                        </div>
+
+
+                        <div class="banana-doctor">
+
+                            🍌
+
+                        </div>
+
+
+                    </div>
+
+
+
+                    <h3>
+
+                        Dr. MOODIFY
+
+                    </h3>
+
+
+
+                    <small>
+
+                        Therapist • Banana • Unqualified
+
+                    </small>
+
+
+                </div>
+
+
+
+                <!-- PATIENT -->
+
+                <div class="therapy-patient">
+
+
+                    <div class="patient-icon">
+
+                        🧸
+
+                    </div>
+
+
+
+                    <h3
+                        id="therapyPatientName">
+
+
+                        Patient
+
+
+                    </h3>
+
+
+
+                    <small>
+
+
+                        Current mood:
+
+
+                        <span
+                            id="therapyPatientMood">
+
+
+                            Unknown
+
+
+                        </span>
+
+
+                    </small>
+
+
+                </div>
+
+
+            </div>
+
+
+
+            <!-- ================================= -->
+            <!-- CONVERSATION BOX -->
+            <!-- ================================= -->
+
+            <div
+                id="therapyConversation"
+                class="therapy-conversation">
+
+
+                Dr. MOODIFY is preparing emotionally
+                questionable questions...
+
+
+            </div>
+
+
+
+            <!-- ================================= -->
+            <!-- NEXT CONVERSATION BUTTON -->
+            <!-- ================================= -->
+
+            <button
+                id="nextTherapyButton"
+                class="therapy-next-button">
+
+
+                Start Conversation 🛋️
+
+
+            </button>
+
+
+        </section>
+
+
+
+        <!-- ================================= -->
+        <!-- FOOTER -->
+        <!-- ================================= -->
+
+        <footer>
+
+
+            <div class="footer-line">
+            </div>
+
+
+
+            <p>
+
+
+                <strong>
+
+                    MOODIFY
+
+                </strong>
+
+
+                — emotionally diagnosing objects
+                since five minutes ago.
+
+
+            </p>
+
+
+
+            <span>
+
+
+                100% useless •
+
+                0% medical accuracy •
+
+                100% feelings
+
+
+            </span>
+
+
+        </footer>
+
+
+    </main>
+
+
+
+    <!-- ================================= -->
+    <!-- PROJECT SCRIPTS -->
+    <!-- ================================= -->
+
+    <script src="data.js">
+    </script>
+
+
+    <script src="script.js">
+    </script>
+
+
+</body>
+
+</html>

@@ -1,0 +1,572 @@
+body {
+
+    margin: 0;
+
+    font-family:
+        Arial,
+        sans-serif;
+
+    background:
+        #f5efe4;
+
+}
+
+
+.therapy-page {
+
+    min-height:
+        100vh;
+
+    padding:
+        20px;
+
+}
+
+
+/* ================================= */
+/* TOP BAR */
+/* ================================= */
+
+.therapy-topbar {
+
+    display:
+        flex;
+
+    justify-content:
+        space-between;
+
+    align-items:
+        center;
+
+    max-width:
+        1100px;
+
+    margin:
+        auto;
+
+    margin-bottom:
+        20px;
+
+}
+
+
+/* ================================= */
+/* THERAPY SCENE */
+/* ================================= */
+
+.therapy-scene {
+
+    position:
+        relative;
+
+    width:
+        100%;
+
+    max-width:
+        1100px;
+
+    height:
+        600px;
+
+    margin:
+        auto;
+
+    overflow:
+        hidden;
+
+    border-radius:
+        25px;
+
+    box-shadow:
+        0 15px 40px
+        rgba(0, 0, 0, 0.2);
+
+}
+
+
+.room-background {
+
+    position:
+        absolute;
+
+    width:
+        100%;
+
+    height:
+        100%;
+
+    object-fit:
+        cover;
+
+}
+
+
+/* ================================= */
+/* DOCTOR */
+/* ================================= */
+
+.doctor-character {
+
+    position:
+        absolute;
+
+    left:
+        12%;
+
+    bottom:
+        50px;
+
+    text-align:
+        center;
+
+    animation:
+        doctorIdle
+        3s
+        infinite
+        ease-in-out;
+
+}
+
+
+.doctor-character img {
+
+    width:
+        220px;
+
+    max-height:
+        350px;
+
+    object-fit:
+        contain;
+
+}
+
+
+@keyframes doctorIdle {
+
+    0% {
+
+        transform:
+            translateY(0px);
+
+    }
+
+
+    50% {
+
+        transform:
+            translateY(-12px);
+
+    }
+
+
+    100% {
+
+        transform:
+            translateY(0px);
+
+    }
+
+}
+
+
+/* ================================= */
+/* PATIENT */
+/* ================================= */
+
+.patient-character {
+
+    position:
+        absolute;
+
+    right:
+        12%;
+
+    bottom:
+        60px;
+
+    text-align:
+        center;
+
+    animation:
+        patientIdle
+        4s
+        infinite
+        ease-in-out;
+
+}
+
+
+.patient-character img {
+
+    width:
+        220px;
+
+    height:
+        220px;
+
+    object-fit:
+        contain;
+
+    border-radius:
+        20px;
+
+}
+
+
+@keyframes patientIdle {
+
+    0% {
+
+        transform:
+            translateY(0px)
+            rotate(0deg);
+
+    }
+
+
+    50% {
+
+        transform:
+            translateY(-8px)
+            rotate(1deg);
+
+    }
+
+
+    100% {
+
+        transform:
+            translateY(0px)
+            rotate(0deg);
+
+    }
+
+}
+
+
+/* ================================= */
+/* CHARACTER LABEL */
+/* ================================= */
+
+.character-label {
+
+    background:
+        white;
+
+    padding:
+        10px
+        15px;
+
+    border-radius:
+        15px;
+
+    font-weight:
+        bold;
+
+}
+
+
+.character-label small {
+
+    display:
+        block;
+
+    font-weight:
+        normal;
+
+    margin-top:
+        5px;
+
+}
+
+
+/* ================================= */
+/* SPEECH BUBBLE */
+/* ================================= */
+
+.speech-bubble {
+
+    position:
+        absolute;
+
+    left:
+        50%;
+
+    top:
+        80px;
+
+    transform:
+        translateX(-50%);
+
+    width:
+        300px;
+
+    background:
+        white;
+
+    padding:
+        20px;
+
+    border-radius:
+        25px;
+
+    text-align:
+        center;
+
+    font-size:
+        18px;
+
+    box-shadow:
+        0 10px 30px
+        rgba(0, 0, 0, 0.15);
+
+}
+
+
+/* ================================= */
+/* CONVERSATION PANEL */
+/* ================================= */
+
+.conversation-panel {
+
+    max-width:
+        800px;
+
+    margin:
+        30px
+        auto;
+
+    padding:
+        30px;
+
+    background:
+        white;
+
+    border-radius:
+        25px;
+
+    box-shadow:
+        0 10px 30px
+        rgba(0, 0, 0, 0.1);
+
+}
+
+
+.speaker-name {
+
+    font-weight:
+        bold;
+
+    font-size:
+        20px;
+
+    margin-bottom:
+        15px;
+
+}
+
+
+.conversation-text {
+
+    font-size:
+        18px;
+
+    line-height:
+        1.6;
+
+    min-height:
+        80px;
+
+}
+
+
+/* ================================= */
+/* CONTROLS */
+/* ================================= */
+
+.therapy-controls {
+
+    display:
+        flex;
+
+    justify-content:
+        center;
+
+    gap:
+        15px;
+
+    margin-top:
+        25px;
+
+}
+
+
+button {
+
+    padding:
+        12px
+        20px;
+
+    border:
+        none;
+
+    border-radius:
+        12px;
+
+    cursor:
+        pointer;
+
+    font-size:
+        16px;
+
+}
+
+
+/* ================================= */
+/* ACTIVE TALKING */
+/* ================================= */
+
+.talking {
+
+    animation:
+        talking
+        0.4s
+        infinite
+        alternate;
+
+}
+
+
+@keyframes talking {
+
+    from {
+
+        transform:
+            scale(1);
+
+    }
+
+
+    to {
+
+        transform:
+            scale(1.05);
+
+    }
+
+}
+
+
+/* ================================= */
+/* MOBILE */
+/* ================================= */
+
+@media
+(max-width: 700px) {
+
+
+    .therapy-scene {
+
+        height:
+            500px;
+
+    }
+
+
+    .doctor-character {
+
+        left:
+            5%;
+
+    }
+
+
+    .patient-character {
+
+        right:
+            5%;
+
+    }
+
+
+    .doctor-character img {
+
+        width:
+            150px;
+
+    }
+
+
+    .patient-character img {
+
+        width:
+            150px;
+
+        height:
+            150px;
+
+    }
+
+
+    .speech-bubble {
+
+        width:
+            220px;
+
+    }
+
+
+}
+/* ================================= */
+/* DR. MOODIFY QUALIFICATIONS */
+/* ================================= */
+
+.doctor-label {
+
+    min-width:
+        250px;
+
+}
+
+
+.doctor-label strong {
+
+    display:
+        block;
+
+    font-size:
+        18px;
+
+    margin-bottom:
+        8px;
+
+}
+
+
+.doctor-label small {
+
+    display:
+        block;
+
+    margin-top:
+        5px;
+
+}
+
+
+.qualification-warning {
+
+    margin-top:
+        10px !important;
+
+    font-style:
+        italic;
+
+    font-size:
+        12px;
+
+    opacity:
+        0.75;
+
+}

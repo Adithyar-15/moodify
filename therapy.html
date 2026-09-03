@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0">
+
+
+    <title>
+        Therapy — MOODIFY 🍌
+    </title>
+
+
+    <link
+        rel="stylesheet"
+        href="therapy.css">
+
+
+</head>
+
+
+<body>
+
+
+    <main class="therapy-page">
+
+
+        <!-- ================================= -->
+        <!-- TOP BAR -->
+        <!-- ================================= -->
+
+        <div class="therapy-topbar">
+
+
+            <span>
+
+                🧠 MOODIFY'S THERAPY DEPARTMENT
+
+            </span>
+
+
+            <button
+                id="muteButton">
+
+                🔊 Sound On
+
+            </button>
+
+
+        </div>
+
+
+
+        <!-- ================================= -->
+        <!-- THERAPY ROOM -->
+        <!-- ================================= -->
+
+        <section class="therapy-scene">
+
+
+            <!-- ROOM BACKGROUND -->
+
+            <img
+                src="assets/therapy-room.png"
+                class="room-background"
+                alt="Dr. MOODIFY's therapy room">
+
+
+
+            <!-- ================================= -->
+            <!-- DOCTOR -->
+            <!-- ================================= -->
+
+            <div
+                id="doctorCharacter"
+                class="doctor-character">
+
+
+                <img
+                    src="assets/dr-moodify.png"
+                    alt="Dr. MOODIFY - Banana Therapist">
+
+
+                <!-- DOCTOR LABEL -->
+
+                <div class="character-label doctor-label">
+
+
+                    <strong>
+
+                        🍌 Dr. MOODIFY
+
+                    </strong>
+
+
+                    <small>
+
+                        Chief Object Therapist
+
+                    </small>
+
+
+                    <small>
+
+                        MBBS*
+
+                    </small>
+
+
+                    <small>
+
+                        Master of Banana Behaviour Studies
+
+                    </small>
+
+
+                    <small>
+
+                        PhD in Pretending to Listen
+
+                    </small>
+
+
+                    <small
+                        class="qualification-warning">
+
+                        *Qualification may be emotionally imaginary.
+
+                    </small>
+
+
+                </div>
+
+
+            </div>
+
+
+
+            <!-- ================================= -->
+            <!-- PATIENT -->
+            <!-- ================================= -->
+
+            <div
+                id="patientCharacter"
+                class="patient-character">
+
+
+                <img
+                    id="therapyPatientImage"
+                    alt="Patient object">
+
+
+
+                <!-- PATIENT LABEL -->
+
+                <div class="character-label patient-label">
+
+
+                    <strong>
+
+                        🩺 Patient:
+
+                    </strong>
+
+
+                    <span
+                        id="therapyPatientName">
+
+                        Loading...
+
+                    </span>
+
+
+                    <small>
+
+                        Mood:
+
+                        <span
+                            id="therapyPatientMood">
+
+                            Unknown
+
+                        </span>
+
+                    </small>
+
+
+                    <small>
+
+                        Status: Emotionally suspicious
+
+                    </small>
+
+
+                </div>
+
+
+            </div>
+
+
+
+            <!-- ================================= -->
+            <!-- SPEECH BUBBLE -->
+            <!-- ================================= -->
+
+            <div
+                id="speechBubble"
+                class="speech-bubble">
+
+
+                🍌 Dr. MOODIFY is preparing
+                questionable medical advice...
+
+
+            </div>
+
+
+        </section>
+
+
+
+        <!-- ================================= -->
+        <!-- CONVERSATION PANEL -->
+        <!-- ================================= -->
+
+        <section class="conversation-panel">
+
+
+            <div
+                id="speakerName"
+                class="speaker-name">
+
+
+                🍌 Dr. MOODIFY
+
+
+            </div>
+
+
+
+            <div
+                id="conversationText"
+                class="conversation-text">
+
+
+                Welcome to MOODIFY Therapy Department.
+
+                Please wait while Dr. MOODIFY
+                finds his completely imaginary medical certificate.
+
+
+            </div>
+
+
+
+            <!-- ================================= -->
+            <!-- CONTROLS -->
+            <!-- ================================= -->
+
+            <div class="therapy-controls">
+
+
+                <button
+                    id="languageButton">
+
+                    🌐 English
+
+                </button>
+
+
+
+                <button
+                    id="replayButton">
+
+                    🔊 Replay
+
+                </button>
+
+
+
+                <button
+                    id="nextButton">
+
+                    🛋️ Start Therapy
+
+                </button>
+
+
+            </div>
+
+
+        </section>
+
+
+
+        <!-- ================================= -->
+        <!-- PRESCRIPTION -->
+        <!-- ================================= -->
+
+        <section
+            id="prescriptionSection"
+            class="prescription-section"
+            style="display: none;">
+
+
+            <div
+                id="prescriptionCard"
+                class="prescription-card">
+
+
+                <!-- JavaScript creates prescription here -->
+
+
+            </div>
+
+
+        </section>
+
+
+    </main>
+
+
+
+    <!-- ================================= -->
+    <!-- THERAPY JAVASCRIPT -->
+    <!-- ================================= -->
+
+    <script
+        src="therapy.js">
+    </script>
+
+
+</body>
+
+</html>
